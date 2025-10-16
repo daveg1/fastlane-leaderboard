@@ -41,6 +41,10 @@ export function useFetchLeaderboard() {
           const data = await fetchUserById(userId);
           return extractData(data);
         },
+        retry: 3,
+        retryDelay: (attemptIndex: number) =>
+          Math.min(1000 * 2 ** attemptIndex, 30000),
+        refetchOnWindowFocus: false,
       };
     }),
     combine: (results) => ({
