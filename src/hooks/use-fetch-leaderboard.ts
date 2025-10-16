@@ -33,7 +33,7 @@ async function fetchUserById(user_id: string) {
 }
 
 export function useFetchLeaderboard() {
-  const { data } = useQueries({
+  const { data, ...props } = useQueries({
     queries: userIds.map((userId) => {
       return {
         queryKey: ["user", userId],
@@ -50,10 +50,10 @@ export function useFetchLeaderboard() {
   });
 
   // combine already memoizes, but to be safe
-  const raceTimes = useMemo<LapTime[]>(
+  const lapTimes = useMemo<LapTime[]>(
     () => (data ?? []).filter((r) => !!r).sort(sortLapTimes),
     [data],
   );
 
-  return [raceTimes] as const;
+  return { lapTimes, ...props };
 }

@@ -7,6 +7,7 @@
 
     .carbon {
         background-image: url('./assets/top-bg.png');
+        background-size: auto 100%;
     }
 
     .gold {
@@ -19,5 +20,17 @@
 
     .bronze {
         background-color: #928080!important;
+    }
+}
+
+@layer utilities {
+    @keyframes shimmer {
+        0% { opacity: 0.5 }
+        50% { opacity: 1 }
+        100% { opacity: 0.5 }
+    }
+
+    .shimmer {
+        animation: shimmer 2s ease-in-out infinite
     }
 }

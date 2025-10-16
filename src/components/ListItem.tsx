@@ -6,7 +6,7 @@ export function ListItem(data: Readonly<LapTime>) {
   return (
     <div
       key={data.name}
-      className="carbon relative grid w-full -skew-x-6 grid-cols-3 items-center border-2 border-red-600/80 bg-repeat-x p-2"
+      className="carbon relative grid w-full -skew-x-6 grid-cols-3 items-center border-2 border-red-600/50 bg-repeat-x p-2 shadow-lg"
     >
       <span
         className={clsx(
