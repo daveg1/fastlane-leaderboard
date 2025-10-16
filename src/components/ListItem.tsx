@@ -6,7 +6,7 @@ export function ListItem(data: Readonly<RaceTime>) {
   return (
     <div
       key={data.name}
-      className="carbon relative grid w-full grid-cols-3 items-center border-2 border-red-600/80 bg-repeat-x p-2"
+      className="carbon relative grid w-full -skew-x-6 grid-cols-3 items-center border-2 border-red-600/80 bg-repeat-x p-2"
     >
       <span
         className={clsx(
@@ -18,9 +18,11 @@ export function ListItem(data: Readonly<RaceTime>) {
       >
         {formatOrdinal(data.place + 1)}
       </span>
-      <span className="font-semibold">{data.name}</span>
+      <span className="ps-10 text-left font-semibold text-slate-200">
+        {data.name}
+      </span>
       <span>{data.time}</span>
-      <span className="text-xs">14.10.2025 At 19:30 h</span>
+      <span className="text-xs text-slate-200">14.10.2025 At 19:30 h</span>
     </div>
   );
 }
