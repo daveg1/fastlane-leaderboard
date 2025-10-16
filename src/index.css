@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+@layer theme {
+    body {
+        background: url('./assets/carbon_logged.jpg') top center / cover;
+    }
+
+    .carbon {
+        background-image: url('./assets/top-bg.png');
+    }
+
+    .gold {
+        background-color: #ffa31c!important;
+    }
+
+    .silver {
+        background-color: #b0aea1!important;
+    }
+
+    .bronze {
+        background-color: #928080!important;
+    }
+}
