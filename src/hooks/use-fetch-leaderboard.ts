@@ -1,59 +1,59 @@
-import type { RaceTime } from "../models/race-time";
+import { useQueries } from "@tanstack/react-query";
+import { sortRaceTimes } from "../utils";
+import { useMemo } from "react";
+import type { ApiResponse, RaceTime } from "../models/race-time";
+import { userIds } from "../user-ids";
 
-const mockLeaderboard: RaceTime[] = [
-  {
-    name: "Person A",
-    time: "00:19.500",
-    date: "",
-    place: -1,
-  },
-  {
-    name: "Person E",
-    time: "00:21.760",
-    date: "",
-    place: -1,
-  },
-  {
-    name: "Person B",
-    time: "00:21.500",
-    date: "",
-    place: -1,
-  },
-  {
-    name: "Person C",
-    time: "00:20.500",
-    date: "",
-    place: -1,
-  },
-  {
-    name: "Person D",
-    time: "00:20.490",
-    date: "",
-    place: -1,
-  },
-];
+function extractData(data: ApiResponse) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(data.html, "text/html");
+  const name = doc.querySelector(".minified-name")?.textContent;
+  const time = doc.querySelector(
+    ".minified-stat.time .minified-stat-value",
+  )?.textContent;
+  const date = doc.querySelector(".minified-stat.date .date")?.textContent;
 
-export function useFetchLeaderboard() {
-  // TODO: fetch actual results
+  return { name, time, date } as RaceTime;
+}
 
-  const sorted = mockLeaderboard.sort((a, b) => {
-    const minuteA = +a.time.slice(0, 2);
-    const minuteB = +b.time.slice(0, 2);
-    if (minuteA > minuteB) return 1;
-    if (minuteA < minuteB) return -1;
-
-    const secondA = +a.time.slice(3, 5);
-    const secondB = +b.time.slice(3, 5);
-    if (secondA > secondB) return 1;
-    if (secondA < secondB) return -1;
-
-    const milliA = +a.time.slice(6, 9);
-    const milliB = +b.time.slice(6, 9);
-    if (milliA > milliB) return 1;
-    if (milliA < milliB) return -1;
-
-    return 0;
+async function fetchUserById(user_id: string) {
+  const params = new URLSearchParams({
+    user_id,
+    track_configuration_id: "0",
+    period: "all",
+    kart_id: "0",
+    start_from: "0",
+    only_victories: "0",
+    only_best_time_sessions: "1",
   });
 
-  return [sorted] as const;
+  return fetch(`/api/sessions-boxes?${params}`)
+    .then((res) => res.json())
+    .then((res) => res as ApiResponse);
+}
+
+export function useFetchLeaderboard() {
+  const { data } = useQueries({
+    queries: userIds.map((userId) => {
+      return {
+        queryKey: ["user", userId],
+        queryFn: async () => {
+          const data = await fetchUserById(userId);
+          return extractData(data);
+        },
+      };
+    }),
+    combine: (results) => ({
+      data: results.map((res) => res.data),
+      pending: results.some((res) => res.isPending),
+    }),
+  });
+
+  // combine already memoizes, but to be safe
+  const raceTimes = useMemo<RaceTime[]>(
+    () => (data ?? []).filter((r) => !!r).sort(sortRaceTimes),
+    [data],
+  );
+
+  return [raceTimes] as const;
 }
