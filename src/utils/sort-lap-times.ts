@@ -1,6 +1,6 @@
-import type { RaceTime } from "../models/race-time";
+import type { LapTime } from "../models/lap-time";
 
-export const sortRaceTimes = (a: RaceTime, b: RaceTime): number => {
+export const sortLapTimes = (a: LapTime, b: LapTime): number => {
   const minuteA = +a.time.slice(0, 2);
   const minuteB = +b.time.slice(0, 2);
   if (minuteA > minuteB) return 1;

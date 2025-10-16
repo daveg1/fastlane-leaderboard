@@ -10,7 +10,7 @@ function App() {
       <h2 className="mb-4 text-xl font-semibold text-white">
         FastLane Abz Leaderboard
       </h2>
-      <List raceTimes={leaderboard} />
+      <List lapTimes={leaderboard} />
     </>
   );
 }

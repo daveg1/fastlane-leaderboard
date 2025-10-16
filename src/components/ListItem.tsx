@@ -1,8 +1,8 @@
 import clsx from "clsx";
 import { formatOrdinal } from "../utils";
-import type { RaceTime } from "../models/race-time";
+import type { LapTime } from "../models/lap-time";
 
-export function ListItem(data: Readonly<RaceTime>) {
+export function ListItem(data: Readonly<LapTime>) {
   return (
     <div
       key={data.name}

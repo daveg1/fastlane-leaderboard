@@ -1,7 +1,7 @@
 import { useQueries } from "@tanstack/react-query";
-import { sortRaceTimes } from "../utils";
+import { sortLapTimes } from "../utils";
 import { useMemo } from "react";
-import type { ApiResponse, RaceTime } from "../models/race-time";
+import type { ApiResponse, LapTime } from "../models/lap-time";
 import { userIds } from "../user-ids";
 
 function extractData(data: ApiResponse) {
@@ -13,7 +13,7 @@ function extractData(data: ApiResponse) {
   )?.textContent;
   const date = doc.querySelector(".minified-stat.date .date")?.textContent;
 
-  return { name, time, date } as RaceTime;
+  return { name, time, date } as LapTime;
 }
 
 async function fetchUserById(user_id: string) {
@@ -50,8 +50,8 @@ export function useFetchLeaderboard() {
   });
 
   // combine already memoizes, but to be safe
-  const raceTimes = useMemo<RaceTime[]>(
-    () => (data ?? []).filter((r) => !!r).sort(sortRaceTimes),
+  const raceTimes = useMemo<LapTime[]>(
+    () => (data ?? []).filter((r) => !!r).sort(sortLapTimes),
     [data],
   );
 

@@ -5,14 +5,14 @@ export interface ApiResponse {
   html: string;
 }
 
-export interface RaceTime {
+export interface LapTime {
   place: number;
   name: string;
   time: string;
   date: string;
 }
 
-export const mockLeaderboard: RaceTime[] = [
+export const mockLeaderboard: LapTime[] = [
   {
     name: "Person A",
     time: "00:19.500",
