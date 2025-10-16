@@ -5,8 +5,8 @@ import type { ApiResponse, LapTime } from "../models/lap-time";
 import { userIds } from "../user-ids";
 
 const BASE_URL = import.meta.env.PROD
-  ? "https://daveg1.github.io/fastlane-leaderboard"
-  : "";
+  ? "https://www.racefacer.com/ajax"
+  : "/api";
 
 function extractData(data: ApiResponse) {
   const parser = new DOMParser();
@@ -31,7 +31,7 @@ async function fetchUserById(user_id: string) {
     only_best_time_sessions: "1",
   });
 
-  return fetch(`${BASE_URL}/api/sessions-boxes?${params}`)
+  return fetch(`${BASE_URL}/sessions-boxes?${params}`)
     .then((res) => res.json())
     .then((res) => res as ApiResponse);
 }
