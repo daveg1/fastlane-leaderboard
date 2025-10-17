@@ -1,15 +1,13 @@
 import { useFetchLeaderboard } from "./hooks";
 import "./App.css";
-import { List } from "./components";
+import { Header, List } from "./components";
 
 function App() {
   const { lapTimes, pending } = useFetchLeaderboard();
 
   return (
     <>
-      <h2 className="mb-4 text-xl font-semibold text-white">
-        FastLane Abz Leaderboard
-      </h2>
+      <Header text="FastLane Abz Leaderboard" />
 
       <List lapTimes={lapTimes} loading={pending} />
     </>
