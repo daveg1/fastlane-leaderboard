@@ -18,11 +18,11 @@ export function ListItem(data: Readonly<LapTime>) {
       >
         {formatOrdinal(data.place + 1)}
       </span>
-      <span className="ps-10 text-left font-semibold text-slate-200">
+      <span className="ps-10 text-left text-sm font-semibold text-slate-200">
         {data.name}
       </span>
       <span>{data.time}</span>
-      <span className="text-xs text-slate-200">14.10.2025 At 19:30 h</span>
+      <span className="text-xs text-slate-200">{data.date}</span>
     </div>
   );
 }

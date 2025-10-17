@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@layer base {
+    :root {
+        @apply h-full;
+    }
+}
+
 @layer theme {
     body {
         background: url('./assets/carbon_logged.jpg') top center / cover;
@@ -20,6 +26,13 @@
 
     .bronze {
         background-color: #928080!important;
+    }
+}
+
+@layer components {
+    .speed-line {
+        @apply w-10 -skew-x-[40deg] border-t border-t-red-600;
+        mask-image: linear-gradient(to left, #000 20%, transparent);
     }
 }
 

@@ -23,7 +23,9 @@ export function List({ lapTimes, loading }: Readonly<Props>) {
           <ListItem key={entry.name} {...entry} place={index} />
         ))}
 
-      {!loading && !lapTimes?.length && <div>Error fetching lap times</div>}
+      {!loading && !lapTimes?.length && (
+        <div>Couldn't fetch lap times, try refreshing.</div>
+      )}
     </div>
   );
 }

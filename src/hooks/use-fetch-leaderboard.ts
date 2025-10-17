@@ -4,10 +4,6 @@ import { useMemo } from "react";
 import type { ApiResponse, LapTime } from "../models/lap-time";
 import { userIds } from "../user-ids";
 
-// const BASE_URL = import.meta.env.PROD
-//   ? "https://www.racefacer.com/ajax"
-//   : "/api";
-
 const BASE_URL = "/api";
 
 function extractData(data: ApiResponse) {
@@ -17,7 +13,12 @@ function extractData(data: ApiResponse) {
   const time = doc.querySelector(
     ".minified-stat.time .minified-stat-value",
   )?.textContent;
-  const date = doc.querySelector(".minified-stat.date .date")?.textContent;
+  const calendar = doc.querySelector(".minified-stat.date .date")?.textContent;
+  const clock = doc
+    .querySelector(".minified-stat.date .clock")
+    ?.textContent?.match(/\d\d:\d\d/);
+
+  const date = `${calendar} @ ${clock}`;
 
   return { name, time, date } as LapTime;
 }
