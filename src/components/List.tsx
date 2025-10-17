@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import type { LapTime } from "../models/lap-time";
 import { userIds } from "../user-ids";
 import { ListItem } from "./ListItem";
@@ -20,7 +21,9 @@ export function List({ lapTimes, loading }: Readonly<Props>) {
 
       {!loading &&
         lapTimes.map((entry, index) => (
-          <ListItem key={entry.name} {...entry} place={index} />
+          <div className={clsx("flip-in w-full", `flip-delay-${index}`)}>
+            <ListItem key={entry.name} {...entry} place={index} />
+          </div>
         ))}
 
       {!loading && !lapTimes?.length && (

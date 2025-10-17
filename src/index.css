@@ -66,6 +66,31 @@
     .delay-2 { animation-delay: 350ms; }
     .delay-3 { animation-delay: 450ms; }
 
+    @keyframes flip-in {
+        from { transform: perspective(400px) rotate3d(1, 0, 0, 90deg); opacity: 0 }
+        40% { transform: perspective(400px) rotate3d(1, 0, 0, -20deg); animation-timing-function: ease-in }
+        60% { transform: perspective(400px) rotate3d(1, 0, 0, 10deg); opacity: 1 }
+        80% { transform: perspective(400px) rotate3d(1, 0, 0, -5deg) }
+        to { transform: perspective(400px); opacity: 1 }
+   }
+
+    .flip-in {
+        backface-visibility: visible !important;
+        animation: flip-in 750ms ease-in forwards;
+        opacity: 0;
+    }
+
+    .flip-delay-1 { animation-delay: 50ms }
+    .flip-delay-2 { animation-delay: 100ms }
+    .flip-delay-3 { animation-delay: 150ms }
+    .flip-delay-4 { animation-delay: 200ms }
+    .flip-delay-5 { animation-delay: 250ms }
+    .flip-delay-6 { animation-delay: 300ms }
+    .flip-delay-7 { animation-delay: 350ms }
+    .flip-delay-8 { animation-delay: 400ms }
+    .flip-delay-9 { animation-delay: 450ms }
+    .flip-delay-10 { animation-delay: 500ms }
+
     .punch-out {
         text-shadow: 1px 1px black, -1px -1px rgb(0 0 0 / 5%);
     }
