@@ -52,6 +52,20 @@
         animation: shimmer 2s ease-in-out infinite
     }
 
+    @keyframes slide-in {
+        from { opacity: 0; transform: translateX(-2rem); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    .slide-in {
+        opacity: 0;
+        animation: slide-in 350ms ease-out forwards;
+    }
+
+    .delay-1 { animation-delay: 250ms; }
+    .delay-2 { animation-delay: 350ms; }
+    .delay-3 { animation-delay: 450ms; }
+
     .punch-out {
         text-shadow: 1px 1px black, -1px -1px rgb(0 0 0 / 5%);
     }
