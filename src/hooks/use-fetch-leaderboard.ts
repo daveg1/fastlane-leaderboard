@@ -13,7 +13,9 @@ function extractData(data: ApiResponse) {
   const time = doc.querySelector(
     ".minified-stat.time .minified-stat-value",
   )?.textContent;
-  const calendar = doc.querySelector(".minified-stat.date .date")?.textContent;
+  const calendar = doc
+    .querySelector(".minified-stat.date .date")
+    ?.textContent?.replaceAll(/\./g, "/");
   const clock = doc
     .querySelector(".minified-stat.date .clock")
     ?.textContent?.match(/\d\d:\d\d/);
