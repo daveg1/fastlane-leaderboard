@@ -9,7 +9,7 @@ type Props = {
 
 export function List({ lapTimes, loading }: Readonly<Props>) {
   return (
-    <div className="mx-auto flex max-w-xl flex-col items-center gap-2 text-white">
+    <div className="mx-auto flex max-w-xl flex-col items-center gap-4 px-4 text-white md:gap-2">
       {(loading || !lapTimes) &&
         userIds.map((id) => (
           <div

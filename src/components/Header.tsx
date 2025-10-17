@@ -9,7 +9,7 @@ export function Header({ text }: Readonly<Props>) {
       <span className="speed-line slide-in absolute top-3 -left-16 delay-2 md:top-3.5"></span>
       <span className="speed-line slide-in absolute bottom-2.5 -left-14 delay-3"></span>
 
-      <h2 className="-skew-x-6 text-lg font-semibold text-white md:text-2xl">
+      <h2 className="-skew-x-6 text-xl font-semibold text-white sm:text-2xl">
         {text}
       </h2>
     </header>
