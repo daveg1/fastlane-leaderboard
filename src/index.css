@@ -1,8 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
 @import "tailwindcss";
+
 
 @layer base {
     :root {
         @apply h-full;
+        font-family: "Source Sans 3", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
     }
 }
 
@@ -17,15 +22,15 @@
     }
 
     .gold {
-        background-color: #ffa31c!important;
+        background-color: oklab(79% 0.1 0.155);
     }
 
     .silver {
-        background-color: #b0aea1!important;
+        background-color: oklab(75% 0 0.02);
     }
 
     .bronze {
-        background-color: #928080!important;
+        background-color: oklab(62% 0.02 0);
     }
 }
 
@@ -45,5 +50,9 @@
 
     .shimmer {
         animation: shimmer 2s ease-in-out infinite
+    }
+
+    .punch-out {
+        text-shadow: 1px 1px black, -1px -1px rgb(0 0 0 / 5%);
     }
 }

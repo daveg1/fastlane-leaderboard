@@ -1,5 +1,4 @@
 import { useFetchLeaderboard } from "./hooks";
-import "./App.css";
 import { Header, List } from "./components";
 
 function App() {

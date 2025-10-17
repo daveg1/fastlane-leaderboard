@@ -1,2 +1,2 @@
-export * from "./format-ordinal";
+export * from "./get-ordinal";
 export * from "./sort-lap-times";
