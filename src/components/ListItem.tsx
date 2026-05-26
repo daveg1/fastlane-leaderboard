@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { getOrdinal } from "../utils";
+import { formatName, getOrdinal } from "../utils";
 import type { LapTime } from "../models/lap-time";
 
 export function ListItem(data: Readonly<LapTime>) {
@@ -23,7 +23,7 @@ export function ListItem(data: Readonly<LapTime>) {
       </span>
 
       <span className="ps-10 text-left text-sm font-semibold text-slate-200">
-        {data.name}
+        {formatName(data.name)}
       </span>
 
       <span className="font-semibold">{data.time}</span>
