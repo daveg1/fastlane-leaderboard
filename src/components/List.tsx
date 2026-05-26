@@ -21,8 +21,11 @@ export function List({ lapTimes, loading }: Readonly<Props>) {
 
       {!loading &&
         lapTimes.map((entry, index) => (
-          <div className={clsx("flip-in w-full", `flip-delay-${index}`)}>
-            <ListItem key={entry.name} {...entry} place={index} />
+          <div
+            key={entry.name}
+            className={clsx("flip-in w-full", `flip-delay-${index}`)}
+          >
+            <ListItem {...entry} place={index} />
           </div>
         ))}
 
