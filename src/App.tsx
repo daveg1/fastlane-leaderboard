@@ -1,20 +1,29 @@
 import { useFetchLeaderboard } from "./hooks";
 import { Dropdown, Header, List, type DropdownOption } from "./components";
+import { useMemo, useState } from "react";
 
 function App() {
-  const { lapTimes, pending } = useFetchLeaderboard();
+  const periodOptions: DropdownOption[] = useMemo(
+    () => [
+      { value: "all", label: "All time" },
+      { value: "year", label: "This year" },
+      { value: "month", label: "This month" },
+      { value: "week", label: "This week" },
+    ],
+    [],
+  );
 
-  const periodOptions: DropdownOption[] = [
-    { value: "All", label: "All time" },
-    { value: "Year", label: "This year" },
-    { value: "Month", label: "This month" },
-    { value: "Week", label: "This week" },
-  ];
+  const trackOptions: DropdownOption[] = useMemo(
+    () => [
+      { value: "1678", label: "2026" },
+      { value: "1218", label: "2025" },
+    ],
+    [],
+  );
 
-  const trackOptions: DropdownOption[] = [
-    { value: "1218", label: "2025" },
-    { value: "1678", label: "2026" },
-  ];
+  const [period, setPeriod] = useState(periodOptions[0].value);
+  const [track, setTrack] = useState(trackOptions[0].value);
+  const { lapTimes, pending } = useFetchLeaderboard({ period, track });
 
   return (
     <>
@@ -24,13 +33,13 @@ function App() {
         <menu className="flex items-center justify-between">
           <Dropdown
             options={periodOptions}
-            onChange={(e) => console.log(e.target.value)}
+            onChange={(e) => setPeriod(e.target.value)}
           />
 
           <Dropdown
             label={"Track configuration:"}
             options={trackOptions}
-            onChange={(e) => console.log(e.target.value)}
+            onChange={(e) => setTrack(e.target.value)}
           />
         </menu>
 

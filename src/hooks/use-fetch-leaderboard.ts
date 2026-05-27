@@ -25,11 +25,19 @@ function extractData(data: ApiResponse) {
   return { name, time, date } as LapTime;
 }
 
-async function fetchUserById(user_id: string) {
+export interface FilterOptions {
+  track: string;
+  period: string;
+}
+
+async function fetchUserById(
+  user_id: string,
+  options?: Partial<FilterOptions>,
+) {
   const params = new URLSearchParams({
     user_id,
-    track_configuration_id: "0",
-    period: "all",
+    track_configuration_id: options?.track ?? "0",
+    period: options?.period ?? "all",
     kart_id: "0",
     start_from: "0",
     only_victories: "0",
@@ -41,13 +49,13 @@ async function fetchUserById(user_id: string) {
     .then((res) => res as ApiResponse);
 }
 
-export function useFetchLeaderboard() {
+export function useFetchLeaderboard(options?: FilterOptions) {
   const { data, ...props } = useQueries({
     queries: userIds.map((userId) => {
       return {
-        queryKey: ["user", userId],
+        queryKey: ["user", userId, options?.period, options?.track],
         queryFn: async () => {
-          const data = await fetchUserById(userId);
+          const data = await fetchUserById(userId, options);
           return extractData(data);
         },
         retry: 3,
