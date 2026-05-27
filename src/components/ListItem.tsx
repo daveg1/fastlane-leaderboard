@@ -10,10 +10,11 @@ export function ListItem(data: Readonly<LapTime>) {
     >
       <span
         className={clsx(
-          "absolute -left-2 w-10 px-2 pr-4 leading-5 font-semibold",
+          "absolute w-10 px-2 pr-4 leading-5 font-semibold",
           data.place === 0 && "gold",
           data.place === 1 && "silver",
           data.place === 2 && "bronze",
+          data.place < 4 && "-left-2",
         )}
       >
         {data.place + 1}
