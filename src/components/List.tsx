@@ -30,7 +30,9 @@ export function List({ lapTimes, loading }: Readonly<Props>) {
         ))}
 
       {!loading && !lapTimes?.length && (
-        <div>Couldn't fetch lap times, try refreshing.</div>
+        <div>
+          Couldn't fetch lap times, try refreshing or use a different filter.
+        </div>
       )}
     </div>
   );

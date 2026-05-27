@@ -71,10 +71,15 @@ export function useFetchLeaderboard(options?: FilterOptions) {
   });
 
   // combine already memoizes, but to be safe
-  const lapTimes = useMemo<LapTime[]>(
-    () => (data ?? []).filter((r) => !!r).sort(sortLapTimes),
-    [data],
-  );
+  const lapTimes = useMemo<LapTime[]>(() => {
+    try {
+      return (data ?? ([] as LapTime[]))
+        .filter((r): r is LapTime => !!r?.name && !!r?.time)
+        .sort(sortLapTimes);
+    } catch {
+      return data as LapTime[];
+    }
+  }, [data]);
 
   return { lapTimes, ...props };
 }
