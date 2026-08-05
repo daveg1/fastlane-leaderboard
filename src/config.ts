@@ -1,9 +1,11 @@
 interface Config {
+  hasConfetti: boolean;
   siteBanner?: string;
   userIds: string[];
 }
 
 const config: Config = {
+  hasConfetti: true,
   siteBanner: "VLAD OWES HUNTER ONE APPLE FRITTER",
   userIds: [
     "16448048",

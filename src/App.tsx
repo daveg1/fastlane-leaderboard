@@ -3,6 +3,7 @@ import { Dropdown, Header, List, type DropdownOption } from "./components";
 import { useMemo, useState } from "react";
 import { SiteBanner } from "./components/SiteBanner";
 import config from "./config";
+import { Confetti } from "./components/Confetti";
 
 function App() {
   const periodOptions: DropdownOption[] = useMemo(
@@ -30,6 +31,7 @@ function App() {
   return (
     <>
       {config.siteBanner && <SiteBanner>{config.siteBanner}</SiteBanner>}
+      {config.hasConfetti && <Confetti />}
 
       <Header text="FastLane Abz Leaderboard" />
 

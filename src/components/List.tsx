@@ -2,8 +2,6 @@ import clsx from "clsx";
 import type { LapTime } from "../models/lap-time";
 import config from "../config";
 import { ListItem } from "./ListItem";
-import ReactConfetti from "react-confetti";
-import { useCountdown } from "../hooks/use-delay";
 
 type Props = {
   lapTimes: LapTime[];
@@ -11,8 +9,6 @@ type Props = {
 };
 
 export function List({ lapTimes, loading }: Readonly<Props>) {
-  const hasFinished = useCountdown(10_000);
-
   return (
     <div className="flex flex-col items-center gap-4 px-4 text-white md:gap-2">
       {(loading || !lapTimes) &&
@@ -38,8 +34,6 @@ export function List({ lapTimes, loading }: Readonly<Props>) {
           Couldn't fetch lap times, try refreshing or use a different filter.
         </div>
       )}
-
-      <ReactConfetti recycle={!hasFinished} />
     </div>
   );
 }
