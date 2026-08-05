@@ -2,7 +2,7 @@ import { useQueries } from "@tanstack/react-query";
 import { sortLapTimes } from "../utils";
 import { useMemo } from "react";
 import type { ApiResponse, LapTime } from "../models/lap-time";
-import { userIds } from "../user-ids";
+import config from "../config";
 
 const BASE_URL = "/api";
 
@@ -51,7 +51,7 @@ async function fetchUserById(
 
 export function useFetchLeaderboard(options?: FilterOptions) {
   const { data, ...props } = useQueries({
-    queries: userIds.map((userId) => {
+    queries: config.userIds.map((userId) => {
       return {
         queryKey: ["user", userId, options?.period, options?.track],
         queryFn: async () => {

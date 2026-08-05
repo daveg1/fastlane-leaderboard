@@ -1,6 +1,8 @@
 import { useFetchLeaderboard } from "./hooks";
 import { Dropdown, Header, List, type DropdownOption } from "./components";
 import { useMemo, useState } from "react";
+import { SiteBanner } from "./components/SiteBanner";
+import config from "./config";
 
 function App() {
   const periodOptions: DropdownOption[] = useMemo(
@@ -27,6 +29,8 @@ function App() {
 
   return (
     <>
+      {config.siteBanner && <SiteBanner>{config.siteBanner}</SiteBanner>}
+
       <Header text="FastLane Abz Leaderboard" />
 
       <main className="mx-auto max-w-xl">
