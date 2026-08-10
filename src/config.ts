@@ -5,7 +5,7 @@ interface Config {
 }
 
 const config: Config = {
-  hasConfetti: true,
+  hasConfetti: false,
   siteBanner: "VLAD OWES HUNTER ONE APPLE FRITTER",
   userIds: [
     "16448048",
