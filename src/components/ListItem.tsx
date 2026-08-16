@@ -1,8 +1,12 @@
 import clsx from "clsx";
 import { formatName, getOrdinal } from "../utils";
 import type { LapTime } from "../models/lap-time";
+import config from "../config";
+import { useState } from "react";
 
 export function ListItem(data: Readonly<LapTime>) {
+  const [imageSrc, setImageSrc] = useState(data.avatarUrl);
+
   return (
     <div
       key={data.name}
@@ -23,9 +27,20 @@ export function ListItem(data: Readonly<LapTime>) {
         </span>
       </span>
 
-      <span className="ps-10 text-left text-sm font-semibold text-slate-200">
-        {formatName(data.name)}
-      </span>
+      <div className="flex items-center gap-3 ps-10">
+        <img
+          className="rounded-xs shadow-sm"
+          src={imageSrc}
+          alt={data.name}
+          height={32}
+          width={32}
+          onError={() => setImageSrc(config.defaultAvatarUrl)}
+        />
+
+        <span className="text-left text-sm font-semibold text-slate-200">
+          {formatName(data.name)}
+        </span>
+      </div>
 
       <span className="font-semibold">{data.time}</span>
       <span className="text-xs text-slate-200">{data.date}</span>

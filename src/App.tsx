@@ -35,7 +35,7 @@ function App() {
 
       <Header text="FastLane Abz Leaderboard" />
 
-      <main className="mx-auto max-w-xl">
+      <main className="mx-auto max-w-2xl">
         <menu className="flex items-center justify-between">
           <Dropdown
             options={periodOptions}

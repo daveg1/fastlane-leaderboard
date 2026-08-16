@@ -9,10 +9,16 @@ const BASE_URL = "/api";
 function extractData(data: ApiResponse) {
   const parser = new DOMParser();
   const doc = parser.parseFromString(data.html, "text/html");
+
   const name = doc.querySelector(".minified-name")?.textContent;
   const time = doc.querySelector(
     ".minified-stat.time .minified-stat-value",
   )?.textContent;
+  const avatarElem = doc.querySelector(
+    ".minified-content .avatar.inline",
+  ) as HTMLElement;
+  const avatarUrl = avatarElem.style.backgroundImage.slice(5, -2);
+
   const calendar = doc
     .querySelector(".minified-stat.date .date")
     ?.textContent?.replaceAll(/\./g, "/");
@@ -22,7 +28,7 @@ function extractData(data: ApiResponse) {
 
   const date = `${calendar} @ ${clock}`;
 
-  return { name, time, date } as LapTime;
+  return { name, time, date, avatarUrl } as LapTime;
 }
 
 export interface FilterOptions {

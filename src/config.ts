@@ -2,9 +2,12 @@ interface Config {
   hasConfetti: boolean;
   siteBanner?: string;
   userIds: string[];
+  defaultAvatarUrl: string;
 }
 
 const config: Config = {
+  defaultAvatarUrl:
+    "https://www.racefacer.com/assets/frontend/img/avatars/27.png",
   hasConfetti: false,
   siteBanner: "VLAD OWES HUNTER ONE APPLE FRITTER",
   userIds: [

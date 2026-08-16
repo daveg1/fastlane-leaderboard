@@ -15,7 +15,7 @@ export function List({ lapTimes, loading }: Readonly<Props>) {
         config.userIds.map((id) => (
           <div
             key={id}
-            className="shimmer mx-auto h-10 w-full max-w-xl -skew-x-6 bg-slate-600 shadow-md"
+            className="shimmer mx-auto h-13 w-full -skew-x-6 bg-slate-600 shadow-md"
           ></div>
         ))}
 
