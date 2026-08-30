@@ -1,20 +1,14 @@
-import type { LapTime } from "../models/lap-time";
+import type { LapDetails } from "../models/lap-time";
 
-export const sortLapTimes = (a: LapTime, b: LapTime): number => {
-  const minuteA = +a.time.slice(0, 2);
-  const minuteB = +b.time.slice(0, 2);
-  if (minuteA > minuteB) return 1;
-  if (minuteA < minuteB) return -1;
+export function timeToMilliseconds(value: string) {
+  const [min, sec, mil] = value.split(/:|\./);
 
-  const secondA = +a.time.slice(3, 5);
-  const secondB = +b.time.slice(3, 5);
-  if (secondA > secondB) return 1;
-  if (secondA < secondB) return -1;
+  return parseInt(min) * 60_000 + parseInt(sec) * 1_000 + parseInt(mil);
+}
 
-  const milliA = +a.time.slice(6, 9);
-  const milliB = +b.time.slice(6, 9);
-  if (milliA > milliB) return 1;
-  if (milliA < milliB) return -1;
+export const sortLapTimes = (a: LapDetails, b: LapDetails): number => {
+  const aTime = timeToMilliseconds(a.best_time);
+  const bTime = timeToMilliseconds(b.best_time);
 
-  return 0;
+  return aTime > bTime ? 1 : aTime < bTime ? -1 : 0;
 };

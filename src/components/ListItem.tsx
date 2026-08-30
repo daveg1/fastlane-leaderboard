@@ -1,10 +1,10 @@
 import clsx from "clsx";
 import { formatName, getOrdinal } from "../utils";
-import type { LapTime } from "../models/lap-time";
+import type { LapDetails } from "../models/lap-time";
 import config from "../config";
 import { useState } from "react";
 
-export function ListItem(data: Readonly<LapTime>) {
+export function ListItem(data: Readonly<LapDetails>) {
   const [imageSrc, setImageSrc] = useState(data.avatarUrl);
 
   return (
@@ -42,7 +42,7 @@ export function ListItem(data: Readonly<LapTime>) {
         </span>
       </div>
 
-      <span className="font-semibold">{data.time}</span>
+      <span className="font-semibold">{data.best_time}</span>
       <span className="text-xs text-slate-200">{data.date}</span>
     </div>
   );
