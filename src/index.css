@@ -1,97 +1,150 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap");
 @import "tailwindcss";
 
-
 @layer base {
-    :root {
-        @apply h-full overflow-hidden;
-        font-family: "Source Sans 3", sans-serif;
-        font-optical-sizing: auto;
-        font-style: normal;
-    }
+  :root {
+    @apply h-full overflow-hidden;
+    font-family: "Source Sans 3", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
 }
 
 @layer theme {
-    body {
-        background: url('./assets/carbon_logged.jpg') top center / cover;
-    }
+  body {
+    background: url("./assets/carbon_logged.jpg") top center / cover;
+  }
 
-    .carbon {
-        background-image: url('./assets/top-bg.png');
-        background-size: auto 100%;
-    }
+  .carbon {
+    background-image: url("./assets/top-bg.png");
+    background-size: auto 100%;
+  }
 
-    .gold {
-        background-color: oklab(79% 0.1 0.155);
-    }
+  .gold {
+    background-color: oklab(79% 0.1 0.155);
+  }
 
-    .silver {
-        background-color: oklab(75% 0 0.02);
-    }
+  .silver {
+    background-color: oklab(75% 0 0.02);
+  }
 
-    .bronze {
-        background-color: oklab(62% 0.02 0);
-    }
+  .bronze {
+    background-color: oklab(62% 0.02 0);
+  }
 }
 
 @layer components {
-    .speed-line {
-        @apply w-10 -skew-x-[40deg] border-t border-t-red-600;
-        mask-image: linear-gradient(to left, #000 20%, transparent);
-    }
+  .speed-line {
+    @apply w-10 -skew-x-[40deg] border-t border-t-red-600;
+    mask-image: linear-gradient(to left, #000 20%, transparent);
+  }
 }
 
 @layer utilities {
-    @keyframes shimmer {
-        0% { opacity: 0.5 }
-        50% { opacity: 1 }
-        100% { opacity: 0.5 }
+  @keyframes shimmer {
+    0% {
+      opacity: 0.5;
     }
-
-    .shimmer {
-        animation: shimmer 2s ease-in-out infinite
+    50% {
+      opacity: 1;
     }
-
-    @keyframes slide-in {
-        from { opacity: 0; transform: translateX(-2rem); }
-        to { opacity: 1; transform: translateX(0); }
+    100% {
+      opacity: 0.5;
     }
+  }
 
-    .slide-in {
-        opacity: 0;
-        animation: slide-in 350ms ease-out forwards;
+  .shimmer {
+    animation: shimmer 2s ease-in-out infinite;
+  }
+
+  @keyframes slide-in {
+    from {
+      opacity: 0;
+      transform: translateX(-2rem);
     }
-
-    .delay-1 { animation-delay: 250ms; }
-    .delay-2 { animation-delay: 350ms; }
-    .delay-3 { animation-delay: 450ms; }
-
-    @keyframes flip-in {
-        from { transform: perspective(400px) rotate3d(1, 0, 0, 90deg); opacity: 0 }
-        40% { transform: perspective(400px) rotate3d(1, 0, 0, -20deg); animation-timing-function: ease-in }
-        60% { transform: perspective(400px) rotate3d(1, 0, 0, 10deg); opacity: 1 }
-        80% { transform: perspective(400px) rotate3d(1, 0, 0, -5deg) }
-        to { transform: perspective(400px); opacity: 1 }
-   }
-
-    .flip-in {
-        backface-visibility: visible !important;
-        animation: flip-in 750ms ease-in forwards;
-        opacity: 0;
+    to {
+      opacity: 1;
+      transform: translateX(0);
     }
+  }
 
-    .flip-delay-1 { animation-delay: 50ms }
-    .flip-delay-2 { animation-delay: 100ms }
-    .flip-delay-3 { animation-delay: 150ms }
-    .flip-delay-4 { animation-delay: 200ms }
-    .flip-delay-5 { animation-delay: 250ms }
-    .flip-delay-6 { animation-delay: 300ms }
-    .flip-delay-7 { animation-delay: 350ms }
-    .flip-delay-8 { animation-delay: 400ms }
-    .flip-delay-9 { animation-delay: 450ms }
-    .flip-delay-10 { animation-delay: 500ms }
+  .slide-in {
+    opacity: 0;
+    animation: slide-in 350ms ease-out forwards;
+  }
 
-    .punch-out {
-        text-shadow: 1px 1px black, -1px -1px rgb(0 0 0 / 5%);
+  .delay-1 {
+    animation-delay: 250ms;
+  }
+  .delay-2 {
+    animation-delay: 350ms;
+  }
+  .delay-3 {
+    animation-delay: 450ms;
+  }
+
+  @keyframes flip-in {
+    from {
+      transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+      opacity: 0;
     }
+    40% {
+      transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+      animation-timing-function: ease-in;
+    }
+    60% {
+      transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+      opacity: 1;
+    }
+    80% {
+      transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+    }
+    to {
+      transform: perspective(400px);
+      opacity: 1;
+    }
+  }
+
+  .flip-in {
+    backface-visibility: visible !important;
+    animation: flip-in 750ms ease-in forwards;
+    opacity: 0;
+  }
+
+  .flip-delay-1 {
+    animation-delay: 50ms;
+  }
+  .flip-delay-2 {
+    animation-delay: 100ms;
+  }
+  .flip-delay-3 {
+    animation-delay: 150ms;
+  }
+  .flip-delay-4 {
+    animation-delay: 200ms;
+  }
+  .flip-delay-5 {
+    animation-delay: 250ms;
+  }
+  .flip-delay-6 {
+    animation-delay: 300ms;
+  }
+  .flip-delay-7 {
+    animation-delay: 350ms;
+  }
+  .flip-delay-8 {
+    animation-delay: 400ms;
+  }
+  .flip-delay-9 {
+    animation-delay: 450ms;
+  }
+  .flip-delay-10 {
+    animation-delay: 500ms;
+  }
+
+  .punch-out {
+    text-shadow:
+      1px 1px black,
+      -1px -1px rgb(0 0 0 / 5%);
+  }
 }
