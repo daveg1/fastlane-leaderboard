@@ -3,7 +3,9 @@
 
 @layer base {
   :root {
-    @apply h-full overflow-hidden;
+    @apply h-full overflow-x-hidden overflow-y-auto;
+    background: #000 url("./assets/carbon_logged.jpg") top center / cover;
+    scrollbar-gutter: stable;
     font-family: "Source Sans 3", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
@@ -11,10 +13,6 @@
 }
 
 @layer theme {
-  body {
-    background: url("./assets/carbon_logged.jpg") top center / cover;
-  }
-
   .carbon {
     background-image: url("./assets/top-bg.png");
     background-size: auto 100%;
