@@ -1,7 +1,7 @@
 import { useQueries } from "@tanstack/react-query";
-import { sortLapTimes } from "../utils";
+import { sortLapTimes, timeToMilliseconds } from "../utils";
 import { useMemo } from "react";
-import type { ApiResponse, LapTime } from "../models/lap-time";
+import type { ApiResponse, LapDetails } from "../models/lap-time";
 import config from "../config";
 
 const BASE_URL = "/api";
@@ -11,13 +11,20 @@ function extractData(data: ApiResponse) {
   const doc = parser.parseFromString(data.html, "text/html");
 
   const name = doc.querySelector(".minified-name")?.textContent;
-  const time = doc.querySelector(
+  const best_time = doc.querySelector(
     ".minified-stat.time .minified-stat-value",
   )?.textContent;
   const avatarElem = doc.querySelector(
     ".minified-content .avatar.inline",
   ) as HTMLElement;
   const avatarUrl = avatarElem.style.backgroundImage.slice(5, -2);
+
+  const laps = [
+    ...doc.querySelectorAll(".table_content a.time_laps.first"),
+  ].map((entry) => ({
+    value: timeToMilliseconds(entry.textContent.trim()),
+    label: entry.textContent.trim(),
+  }));
 
   const calendar = doc
     .querySelector(".minified-stat.date .date")
@@ -28,7 +35,7 @@ function extractData(data: ApiResponse) {
 
   const date = `${calendar} @ ${clock}`;
 
-  return { name, time, date, avatarUrl } as LapTime;
+  return { name, best_time, date, avatarUrl, laps } as LapDetails;
 }
 
 export interface FilterOptions {
@@ -77,13 +84,13 @@ export function useFetchLeaderboard(options?: FilterOptions) {
   });
 
   // combine already memoizes, but to be safe
-  const lapTimes = useMemo<LapTime[]>(() => {
+  const lapTimes = useMemo<LapDetails[]>(() => {
     try {
-      return (data ?? ([] as LapTime[]))
-        .filter((r): r is LapTime => !!r?.name && !!r?.time)
+      return (data ?? ([] as LapDetails[]))
+        .filter((r): r is LapDetails => !!r?.name && !!r?.best_time)
         .sort(sortLapTimes);
     } catch {
-      return data as LapTime[];
+      return data as LapDetails[];
     }
   }, [data]);
 

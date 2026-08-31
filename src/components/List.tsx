@@ -1,10 +1,10 @@
 import clsx from "clsx";
-import type { LapTime } from "../models/lap-time";
+import type { LapDetails } from "../models/lap-time";
 import config from "../config";
 import { ListItem } from "./ListItem";
 
 type Props = {
-  lapTimes: LapTime[];
+  lapTimes: LapDetails[];
   loading: boolean;
 };
 
