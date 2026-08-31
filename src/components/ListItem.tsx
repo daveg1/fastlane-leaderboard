@@ -4,9 +4,9 @@ import type { LapDetails } from "../models/lap-time";
 import config from "../config";
 import { useState } from "react";
 import {
+  Area,
+  AreaChart,
   CartesianGrid,
-  Line,
-  LineChart,
   Tooltip,
   XAxis,
   YAxis,
@@ -84,30 +84,36 @@ export function ListItem(data: Readonly<LapDetails>) {
         </span>
       </div>
 
-      <section
+      <div
         className={clsx(
-          "w-full py-4 transition-all",
+          "-ml-1 w-full rounded-b-lg bg-black/80 p-2 py-4 transition-all",
           isOpen ? "block" : "hidden",
         )}
       >
-        <header className="px-8 pb-4">
-          <h2 className="text-xl">Lap analysis</h2>
-          <p>
-            <strong>{totalLaps}</strong> total laps
-          </p>
-          <p>
-            <strong>{removedLaps}</strong> slow lap
-            {removedLaps > 1 ? "s" : ""} removed
-          </p>
-        </header>
+        <section className="px-8 pb-4">
+          <h2 className="text-xl">Lap progression</h2>
 
-        <LineChart height={300} responsive data={chartData}>
-          <CartesianGrid
-            // strokeDasharray="3 3"
-            stroke="var(--color-slate-500)"
-          />
+          <main className="text-gray-300">
+            <p>
+              <strong>{totalLaps}</strong> total laps (
+              <strong>{removedLaps}</strong> slow lap
+              {removedLaps > 1 ? "s" : ""} removed)
+            </p>
+
+            <p></p>
+          </main>
+        </section>
+
+        <AreaChart
+          responsive
+          data={chartData}
+          height={300}
+          margin={{ bottom: 16, right: 16, left: 4 }}
+        >
+          <CartesianGrid stroke="var(--color-slate-500)" strokeOpacity={0.4} />
 
           <XAxis
+            label={{ value: "Laps", position: "insideBottom", dy: 16 }}
             dataKey="lapNumber"
             name="Lap"
             interval={0}
@@ -118,6 +124,12 @@ export function ListItem(data: Readonly<LapDetails>) {
           />
 
           <YAxis
+            label={{
+              value: "Lap time (sec)",
+              angle: -90,
+              position: "insideLeft",
+              style: { textAnchor: "middle" },
+            }}
             dataKey="value"
             domain={["dataMin - 200", "dataMax + 200"]}
             allowDataOverflow={true}
@@ -128,16 +140,35 @@ export function ListItem(data: Readonly<LapDetails>) {
             stroke="var(--color-slate-300)"
           />
 
-          <Tooltip />
+          <Tooltip
+            content={({ active, payload }) => {
+              if (active && payload && payload.length) {
+                return (
+                  <span className="rounded-xs bg-red-700 px-2 py-1 text-white">
+                    {payload[0].payload.label}
+                  </span>
+                );
+              }
+            }}
+          />
 
-          <Line
+          <Area
             type="monotone"
             dataKey="value"
             stroke="#006dff"
             strokeWidth={2}
+            fill="#006dff"
+            fillOpacity={0.2}
+            dot={{
+              stroke: "#fff",
+              strokeWidth: 2,
+              fill: "#006dff",
+              r: 4,
+              visibility: "visible",
+            }}
           />
-        </LineChart>
-      </section>
+        </AreaChart>
+      </div>
     </div>
   );
 }
