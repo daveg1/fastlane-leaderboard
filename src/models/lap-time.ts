@@ -19,6 +19,12 @@ export interface LapDetails {
   laps: LapTime[];
 }
 
+export interface LapChartData {
+  lapNumber: number;
+  label: string;
+  value: number;
+}
+
 export const mockLeaderboard: LapDetails[] = [
   {
     name: "Person A",

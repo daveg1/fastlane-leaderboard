@@ -1,5 +1,11 @@
 import clsx from "clsx";
-import { formatName, getOrdinal } from "../utils";
+import {
+  formatName,
+  getAverageLapTime,
+  getOrdinal,
+  getSlowestLapTime,
+  millisecondsToTime,
+} from "../utils";
 import type { LapDetails } from "../models/lap-time";
 import config from "../config";
 import { useState } from "react";
@@ -12,13 +18,15 @@ import {
   YAxis,
 } from "recharts";
 
+const LAP_TIME_CUTOFF_MS = 25_000;
+
 export function ListItem(data: Readonly<LapDetails>) {
   const [imageSrc, setImageSrc] = useState(data.avatarUrl);
 
   const [isOpen, setIsOpen] = useState(false);
 
   const chartData = data.laps
-    .filter((lap) => lap.value < 23_000)
+    .filter((lap) => lap.value < LAP_TIME_CUTOFF_MS)
     .map((lap, index) => ({
       lapNumber: index + 1,
       label: lap.label,
@@ -93,14 +101,36 @@ export function ListItem(data: Readonly<LapDetails>) {
         <section className="px-8 pb-4">
           <h2 className="text-xl">Lap progression</h2>
 
-          <main className="text-gray-300">
+          <main className="grid grid-cols-2 text-gray-300">
             <p>
-              <strong>{totalLaps}</strong> total laps (
-              <strong>{removedLaps}</strong> slow lap
-              {removedLaps > 1 ? "s" : ""} removed)
+              <strong>{totalLaps}</strong> total laps
             </p>
 
-            <p></p>
+            <p>
+              Average:{" "}
+              <strong>
+                {millisecondsToTime(getAverageLapTime(chartData))}
+              </strong>
+            </p>
+
+            <p>
+              {removedLaps > 0 ? (
+                <>
+                  <strong>{removedLaps}</strong> slow lap
+                  {removedLaps > 1 ? "s" : ""} removed (
+                  {LAP_TIME_CUTOFF_MS / 1_000}s cutoff)
+                </>
+              ) : (
+                "no laps removed"
+              )}
+            </p>
+
+            <p>
+              Slowest:{" "}
+              <strong>
+                {millisecondsToTime(getSlowestLapTime(chartData))}
+              </strong>
+            </p>
           </main>
         </section>
 
