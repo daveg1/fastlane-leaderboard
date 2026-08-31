@@ -86,7 +86,7 @@ export function ListItem(data: Readonly<LapDetails>) {
 
       <div
         className={clsx(
-          "-ml-1 w-full rounded-b-lg bg-black/80 p-2 py-4 transition-all",
+          "-ml-0.5 w-full rounded-b-lg bg-black/80 p-2 py-4 transition-all",
           isOpen ? "block" : "hidden",
         )}
       >
