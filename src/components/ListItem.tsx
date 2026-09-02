@@ -7,7 +7,7 @@ import {
   getSlowestLapTime,
   millisecondsToTime,
 } from "../utils";
-import type { LapDetails } from "../models/lap-time";
+import { TrackConfig, type LapDetails } from "../models/lap-time";
 import config from "../config";
 import { useMemo, useState } from "react";
 import {
@@ -22,8 +22,6 @@ import type {
   ActiveDotProps,
   DotItemDotProps,
 } from "recharts/types/util/types";
-
-const LAP_TIME_CUTOFF_MS = 25_000;
 
 export function ListItem(data: Readonly<LapDetails>) {
   const [isOpen, setIsOpen] = useState(false);
@@ -123,9 +121,15 @@ function ListItemDriver({ data, isOpen, onClick }: ListItemOptions) {
 }
 
 function ListItemStats({ data, isOpen }: ListItemOptions) {
+  const chartConfig = useMemo(() => {
+    return data.track === TrackConfig.y2025
+      ? { domain: [18_500, 22_000], cutoff: 22_000 }
+      : { domain: [19_000, 25_000], cutoff: 25_000 };
+  }, [data]);
+
   const stats = useMemo(() => {
     const chartData = data.laps
-      .filter((lap) => lap.value < LAP_TIME_CUTOFF_MS)
+      .filter((lap) => lap.value < chartConfig.cutoff)
       .map((lap, index) => ({
         lapNumber: index + 1,
         label: lap.label,
@@ -136,7 +140,7 @@ function ListItemStats({ data, isOpen }: ListItemOptions) {
     const chartLaps = chartData.length;
 
     return { chartData, totalLaps, chartLaps };
-  }, [data]);
+  }, [data, chartConfig.cutoff]);
 
   const customDot = ({ cx, cy, payload }: DotItemDotProps | ActiveDotProps) => {
     const isBestLap = payload.label === data.best_time;
@@ -229,7 +233,7 @@ function ListItemStats({ data, isOpen }: ListItemOptions) {
             style: { textAnchor: "middle" },
           }}
           dataKey="value"
-          domain={[19000, 25000]}
+          domain={chartConfig.domain}
           allowDataOverflow={true}
           tickFormatter={(milliseconds) => `${Math.floor(milliseconds / 1000)}`}
           unit="s"

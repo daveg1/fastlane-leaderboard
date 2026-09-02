@@ -6,7 +6,7 @@ import config from "../config";
 
 const BASE_URL = "/api";
 
-function extractData(data: ApiResponse) {
+function extractData(data: ApiResponse, options?: FilterOptions) {
   const parser = new DOMParser();
   const doc = parser.parseFromString(data.html, "text/html");
 
@@ -35,7 +35,14 @@ function extractData(data: ApiResponse) {
 
   const date = `${calendar} @ ${clock}`;
 
-  return { name, best_time, date, avatarUrl, laps } as LapDetails;
+  return {
+    name,
+    best_time,
+    date,
+    avatarUrl,
+    laps,
+    track: options?.track,
+  } as LapDetails;
 }
 
 export interface FilterOptions {
@@ -69,7 +76,7 @@ export function useFetchLeaderboard(options?: FilterOptions) {
         queryKey: ["user", userId, options?.period, options?.track],
         queryFn: async () => {
           const data = await fetchUserById(userId, options);
-          return extractData(data);
+          return extractData(data, options);
         },
         retry: 3,
         retryDelay: (attemptIndex: number) =>

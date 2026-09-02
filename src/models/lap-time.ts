@@ -10,6 +10,11 @@ export interface LapTime {
   value: number; // time in milliseconds, e.g. 81785
 }
 
+export const TrackConfig = {
+  y2025: "1218",
+  y2026: "1678",
+} as const;
+
 export interface LapDetails {
   place: number;
   name: string;
@@ -17,6 +22,7 @@ export interface LapDetails {
   date: string;
   avatarUrl: string;
   laps: LapTime[];
+  track: string;
 }
 
 export interface LapChartData {
@@ -33,6 +39,7 @@ export const mockLeaderboard: LapDetails[] = [
     place: -1,
     avatarUrl: "",
     laps: [],
+    track: "2026",
   },
   {
     name: "Person E",
@@ -41,6 +48,7 @@ export const mockLeaderboard: LapDetails[] = [
     place: -1,
     avatarUrl: "",
     laps: [],
+    track: "2026",
   },
   {
     name: "Person B",
@@ -49,6 +57,7 @@ export const mockLeaderboard: LapDetails[] = [
     place: -1,
     avatarUrl: "",
     laps: [],
+    track: "2026",
   },
   {
     name: "Person C",
@@ -57,6 +66,7 @@ export const mockLeaderboard: LapDetails[] = [
     place: -1,
     avatarUrl: "",
     laps: [],
+    track: "2026",
   },
   {
     name: "Person D",
@@ -65,5 +75,6 @@ export const mockLeaderboard: LapDetails[] = [
     place: -1,
     avatarUrl: "",
     laps: [],
+    track: "2026",
   },
 ];
