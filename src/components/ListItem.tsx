@@ -145,7 +145,7 @@ function ListItemStats({ data, isOpen }: ListItemOptions) {
         key={`custom-dot-${payload.lapNumber}`}
         className={
           isBestLap
-            ? "fill-red-800 stroke-red-600"
+            ? "fill-green-700 stroke-green-500"
             : "fill-blue-500 stroke-white"
         }
         cx={cx}
