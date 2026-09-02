@@ -87,7 +87,7 @@ function ListItemDriver({ data, isOpen, onClick }: ListItemOptions) {
       <span className="font-semibold">{data.best_time}</span>
       <span className="text-xs text-slate-200">{data.date}</span>
 
-      <span className="absolute right-4">
+      <span className="absolute right-4 max-sm:right-2">
         {isOpen ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
