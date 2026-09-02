@@ -241,9 +241,14 @@ function ListItemStats({ data, isOpen }: ListItemOptions) {
             if (active && payload[0]) {
               const isBestTime = payload[0].payload.label === data.best_time;
               return (
-                <span className="rounded-xs bg-red-700 px-2 py-1 text-white">
+                <span
+                  className={clsx(
+                    "rounded-xs px-2 py-1 text-white",
+                    isBestTime ? "bg-green-700" : "bg-red-700",
+                  )}
+                >
                   {payload[0].payload.label}
-                  {isBestTime && " - best time!"}
+                  {isBestTime && " - PB"}
                 </span>
               );
             }
