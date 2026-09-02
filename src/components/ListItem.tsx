@@ -30,7 +30,7 @@ export function ListItem(data: Readonly<LapDetails>) {
 
   return (
     <article>
-      <ListItemMain
+      <ListItemDriver
         data={data}
         isOpen={isOpen}
         onClick={() => setIsOpen((v) => !v)}
@@ -47,13 +47,13 @@ interface ListItemOptions {
   onClick?(): void;
 }
 
-function ListItemMain({ data, isOpen, onClick }: ListItemOptions) {
+function ListItemDriver({ data, isOpen, onClick }: ListItemOptions) {
   const [imageSrc, setImageSrc] = useState(data.avatarUrl);
 
   return (
     <main
       key={data.name}
-      className="punch-out carbon relative grid w-full -skew-x-6 cursor-pointer grid-cols-3 items-center border-2 border-red-600/50 bg-repeat-x p-2 text-center shadow-lg"
+      className="punch-out carbon relative grid w-full -skew-x-6 cursor-pointer grid-cols-[1fr_auto_1fr] items-center border-2 border-red-600/50 bg-repeat-x p-2 text-center shadow-lg"
       onClick={() => onClick?.()}
     >
       <span
