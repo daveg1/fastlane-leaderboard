@@ -27,6 +27,18 @@ export function getAverageLapTime(data: LapChartData[]): number {
 
 export function getSlowestLapTime(data: LapChartData[]): number {
   return Math.floor(
-    data.reduce((t, lap) => (lap.value > t ? lap.value : t), 0),
+    data.reduce(
+      (t, lap) => (lap.value > t ? lap.value : t),
+      Number.MIN_SAFE_INTEGER,
+    ),
+  );
+}
+
+export function getFastestLapTime(data: LapChartData[]): number {
+  return Math.floor(
+    data.reduce(
+      (t, lap) => (lap.value < t ? lap.value : t),
+      Number.MAX_SAFE_INTEGER,
+    ),
   );
 }

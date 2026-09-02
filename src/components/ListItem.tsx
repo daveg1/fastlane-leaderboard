@@ -2,6 +2,7 @@ import clsx from "clsx";
 import {
   formatName,
   getAverageLapTime,
+  getFastestLapTime,
   getOrdinal,
   getSlowestLapTime,
   millisecondsToTime,
@@ -163,10 +164,10 @@ function ListItemStats({ data, isOpen }: ListItemOptions) {
         isOpen ? "block" : "hidden",
       )}
     >
-      <section className="px-8 pb-4">
+      <section className="px-8 pb-4 max-sm:px-4">
         <h2 className="text-xl">Lap progression</h2>
 
-        <div className="grid grid-cols-2 text-gray-300">
+        <div className="grid grid-cols-2 text-gray-300 max-sm:grid-cols-[1fr_auto]">
           <div className="flex flex-col">
             <p>
               showing <strong>{stats.chartData.length}</strong> of{" "}
@@ -176,18 +177,25 @@ function ListItemStats({ data, isOpen }: ListItemOptions) {
             <p className="text-gray-400">slow laps excluded ({">"}25s)</p>
           </div>
 
-          <div className="flex flex-col">
-            <p>
-              Average:{" "}
-              <strong>
-                {millisecondsToTime(getAverageLapTime(stats.chartData))}
-              </strong>
-            </p>
-
+          <div className="flex flex-col max-sm:text-right">
             <p>
               Slowest:{" "}
               <strong>
                 {millisecondsToTime(getSlowestLapTime(stats.chartData))}
+              </strong>
+            </p>
+
+            <p>
+              Fastest:{" "}
+              <strong>
+                {millisecondsToTime(getFastestLapTime(stats.chartData))}
+              </strong>
+            </p>
+
+            <p>
+              Average:{" "}
+              <strong>
+                {millisecondsToTime(getAverageLapTime(stats.chartData))}
               </strong>
             </p>
           </div>
