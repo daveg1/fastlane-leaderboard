@@ -17,6 +17,10 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import type {
+  ActiveDotProps,
+  DotItemDotProps,
+} from "recharts/types/util/types";
 
 const LAP_TIME_CUTOFF_MS = 25_000;
 
@@ -128,52 +132,66 @@ function ListItemStats({ data, isOpen }: ListItemOptions) {
       }));
 
     const totalLaps = data.laps.length;
-    const removedLaps = totalLaps - chartData.length;
+    const chartLaps = chartData.length;
 
-    return { chartData, totalLaps, removedLaps };
+    return { chartData, totalLaps, chartLaps };
   }, [data]);
+
+  const customDot = ({ cx, cy, payload }: DotItemDotProps | ActiveDotProps) => {
+    const isBestLap = payload.label === data.best_time;
+
+    return (
+      <circle
+        key={`custom-dot-${payload.lapNumber}`}
+        className={
+          isBestLap
+            ? "fill-red-800 stroke-red-600"
+            : "fill-blue-500 stroke-white"
+        }
+        cx={cx}
+        cy={cy}
+        r={isBestLap ? 6 : 4}
+        strokeWidth={2}
+      />
+    );
+  };
 
   return (
     <aside
       className={clsx(
-        "-ml-0.5 w-full rounded-b-lg bg-black/80 p-2 py-4 transition-all",
+        "-ml-0.5 w-full overflow-hidden rounded-b-lg bg-black/80 p-2 py-4 transition-all",
         isOpen ? "block" : "hidden",
       )}
     >
       <section className="px-8 pb-4">
         <h2 className="text-xl">Lap progression</h2>
 
-        <main className="grid grid-cols-2 text-gray-300">
-          <p>
-            <strong>{stats.totalLaps}</strong> total laps
-          </p>
+        <div className="grid grid-cols-2 text-gray-300">
+          <div className="flex flex-col">
+            <p>
+              showing <strong>{stats.chartData.length}</strong> of{" "}
+              <strong>{data.laps.length}</strong> total laps
+            </p>
 
-          <p>
-            Average:{" "}
-            <strong>
-              {millisecondsToTime(getAverageLapTime(stats.chartData))}
-            </strong>
-          </p>
+            <p className="text-gray-400">slow laps excluded ({">"}25s)</p>
+          </div>
 
-          <p>
-            {stats.removedLaps > 0 ? (
-              <>
-                <strong>{stats.removedLaps}</strong> slow lap
-                {stats.removedLaps > 1 ? "s" : ""} removed (
-                {LAP_TIME_CUTOFF_MS / 1_000}s cutoff)
-              </>
-            ) : (
-              "no laps removed"
-            )}
-          </p>
+          <div className="flex flex-col">
+            <p>
+              Average:{" "}
+              <strong>
+                {millisecondsToTime(getAverageLapTime(stats.chartData))}
+              </strong>
+            </p>
 
-          <p>
-            Slowest:{" "}
-            <strong>
-              {millisecondsToTime(getSlowestLapTime(stats.chartData))}
-            </strong>
-          </p>
-        </main>
+            <p>
+              Slowest:{" "}
+              <strong>
+                {millisecondsToTime(getSlowestLapTime(stats.chartData))}
+              </strong>
+            </p>
+          </div>
+        </div>
       </section>
 
       <AreaChart
@@ -203,7 +221,7 @@ function ListItemStats({ data, isOpen }: ListItemOptions) {
             style: { textAnchor: "middle" },
           }}
           dataKey="value"
-          domain={["dataMin - 200", "dataMax + 200"]}
+          domain={[19000, 25000]}
           allowDataOverflow={true}
           tickFormatter={(milliseconds) => `${Math.floor(milliseconds / 1000)}`}
           unit="s"
@@ -229,13 +247,8 @@ function ListItemStats({ data, isOpen }: ListItemOptions) {
           strokeWidth={2}
           fill="#006dff"
           fillOpacity={0.2}
-          dot={{
-            stroke: "#fff",
-            strokeWidth: 2,
-            fill: "#006dff",
-            r: 4,
-            visibility: "visible",
-          }}
+          dot={customDot}
+          activeDot={customDot}
         />
       </AreaChart>
     </aside>
