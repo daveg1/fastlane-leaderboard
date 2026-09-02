@@ -238,10 +238,12 @@ function ListItemStats({ data, isOpen }: ListItemOptions) {
 
         <Tooltip
           content={({ active, payload }) => {
-            if (active && payload && payload.length) {
+            if (active && payload[0]) {
+              const isBestTime = payload[0].payload.label === data.best_time;
               return (
                 <span className="rounded-xs bg-red-700 px-2 py-1 text-white">
                   {payload[0].payload.label}
+                  {isBestTime && " - best time!"}
                 </span>
               );
             }
