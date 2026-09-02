@@ -10,6 +10,19 @@
     font-optical-sizing: auto;
     font-style: normal;
   }
+
+  .recharts-wrapper,
+  .recharts-surface,
+  .recharts-layer {
+    outline: none !important;
+  }
+
+  svg:focus,
+  path:focus,
+  circle:focus,
+  g:focus {
+    outline: none !important;
+  }
 }
 
 @layer theme {
